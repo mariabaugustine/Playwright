@@ -10,3 +10,5 @@ await using var browser=await playwright.Chromium.LaunchAsync();
 //Page instance
 var context=await browser.NewContextAsync();
 var page=await context.NewPageAsync();
+
+await page.GotoAsync("https://www.google.com");
