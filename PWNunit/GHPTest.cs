@@ -61,6 +61,8 @@ namespace PWNunit
             title = await Page.TitleAsync();
             Console.WriteLine(title);
             Assert.That(title, Does.Contain("Selenium"));
+          //  await Expect(Page.TitleAsync()).Equals("Selenium");
+          
         }
     }
 }
