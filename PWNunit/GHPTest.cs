@@ -13,14 +13,18 @@ namespace PWNunit
         //[Test]
         //public async Task Test1()
         //{
-           
+
 
         //    //playwright startup
 
         //    using var playwright = await Playwright.CreateAsync();
         //    //Launch browser
 
-        //    await using var browser = await playwright.Chromium.LaunchAsync();
+        //    await using var browser = await playwright.Chromium.LaunchAsync(
+        //        new BrowserTypeLaunchOptions
+        //        {
+        //            Headless=false
+        //        } );
 
         //    //Page instance
         //    var context = await browser.NewContextAsync();
@@ -45,7 +49,7 @@ namespace PWNunit
         {
 
 
-            
+
             Console.WriteLine("Opened Browser");
             await Page.GotoAsync("https://www.google.com");
             Console.WriteLine("Page Loaded");
@@ -61,8 +65,8 @@ namespace PWNunit
             title = await Page.TitleAsync();
             Console.WriteLine(title);
             Assert.That(title, Does.Contain("Selenium"));
-          //  await Expect(Page.TitleAsync()).Equals("Selenium");
-          
+            await Expect(Page).ToHaveTitleAsync("Selenium - Google Search");
+
         }
     }
 }
