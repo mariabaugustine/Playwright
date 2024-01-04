@@ -14,9 +14,9 @@ namespace Naaptol_03_01_2024
         }
 
         [Test]
-        public void Test1()
+        public async Task SearchProduct()
         {
-            Assert.Pass();
+            
         }
     }
 }
