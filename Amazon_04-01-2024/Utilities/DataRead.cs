@@ -1,5 +1,5 @@
-﻿using ExcelDataReader;
-using PlayWrightPOM.Test_Helper_Class;
+﻿using Amazon_04_01_2024.Test_Helper_Class;
+using ExcelDataReader;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlayWrightPOM.Utilities
+namespace Amazon_04_01_2024.Utilities
 {
-    internal class LoginCredentialDataRead
+    internal class DataRead
     {
-        public static List<EAText> ReadLoginData(string excelFilePath, string sheetname)
+        public static List<SearchData> ReadSearchData(string excelFilePath, string sheetname)
         {
-            List<EAText> excelDataList = new List<EAText>();
+            List<SearchData> excelDataList = new List<SearchData>();
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
@@ -32,10 +32,10 @@ namespace PlayWrightPOM.Utilities
                     {
                         foreach (DataRow row in datatable.Rows)
                         {
-                            EAText excelData = new EAText
+                            SearchData excelData = new SearchData
                             {
-                                UserName= GetValueOrDefault(row, "un"),
-                                Password= GetValueOrDefault(row, "pwd")
+                                ProductName= GetValueOrDefault(row, "Name"),
+                               
 
                             };
                             excelDataList.Add(excelData);
