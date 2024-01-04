@@ -19,11 +19,13 @@ namespace PlayWrightPOM.PWTests.Tests
         }
 
         [Test]
-        public async Task  LoginTest()
+        [TestCase("admin","password")]
+        [TestCase("admin", "xxxxx")]
+        public async Task  LoginTest(string username,string password)
         {
             LoginPage loginPage=new (Page);
             await loginPage.ClickLoginLink();
-            await loginPage.Login("admin", "password");
+            await loginPage.Login(username,password);
             Assert.IsTrue(await loginPage.CheckWelcomeMessage());
 
         }
