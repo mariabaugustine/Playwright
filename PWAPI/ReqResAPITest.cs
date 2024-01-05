@@ -78,12 +78,13 @@ namespace PWAPI
 
         }
         [Test]
-        public async Task PostUser()
+        [TestCase("John","Engineer")]
+        public async Task PostUser(string uname,string ujob)
         {
             var postData = new
             {
-                name = "Maria",
-                job = "Engineer"
+                name = uname,
+                job = ujob
             };
             var jsonData=System.Text.Json.JsonSerializer.Serialize(postData);
 
@@ -101,12 +102,13 @@ namespace PWAPI
 
         }
         [Test]
-        public async Task UpdateUser()
+        [TestCase(2,"Lizza","Engineer")]
+        public async Task UpdateUser(int id,string uname,string ujob)
         {
             var postData = new
             {
-                name = "Lizza",
-                job = "Engineer"
+                name = uname,
+                job = ujob
             };
             var jsonData = System.Text.Json.JsonSerializer.Serialize(postData);
 
@@ -123,5 +125,15 @@ namespace PWAPI
             Assert.That(postResponse, Is.Not.Null);
 
         }
-    }
+        [Test]
+        public async Task DeleteUser()
+        {
+            var deleteresponse = await requestContext.DeleteAsync(url: "users/2");
+            await Console.Out.WriteLineAsync("Res:\n" + deleteresponse.ToString());
+            await Console.Out.WriteLineAsync("Code:\n" + deleteresponse.Status);
+            await Console.Out.WriteLineAsync("Text:\n" + deleteresponse.StatusText);
+
+            Assert.That(deleteresponse, Is.Not.Null);
+            Assert.That(deleteresponse.Status.Equals(204));
+        }   }
 }
