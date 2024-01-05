@@ -1,5 +1,6 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
+using System.Net;
 using System.Text.Json;
 
 namespace PWAPI
@@ -74,6 +75,29 @@ namespace PWAPI
             Assert.That(responsebody.ToString, Is.EqualTo("{}"));
 
 
+
+        }
+        [Test]
+        public async Task PostUser()
+        {
+            var postData = new
+            {
+                name = "Maria",
+                job = "Engineer"
+            };
+            var jsonData=System.Text.Json.JsonSerializer.Serialize(postData);
+
+            var postResponse = await requestContext.PostAsync(url: "users",
+                new APIRequestContextOptions()
+                {
+                  Data = jsonData
+                });
+            await Console.Out.WriteLineAsync("Res:\n" + postResponse.ToString());
+            await Console.Out.WriteLineAsync("Code:\n" + postResponse.Status);
+            await Console.Out.WriteLineAsync("Text:\n" + postResponse.StatusText);
+
+            Assert.That(postResponse.Status.Equals(201));
+            Assert.That(postResponse, Is.Not.Null);
 
         }
     }
