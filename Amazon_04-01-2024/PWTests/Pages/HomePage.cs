@@ -19,6 +19,9 @@ namespace Amazon_04_01_2024.PWTests.Pages
         {
         await SearchInput.ClickAsync();
         await SearchInput.FillAsync(productName);
+                
+           
+            
        // await SearchInput.PressAsync(key:"Enter");
          await SearchButton.ClickAsync();
         }
