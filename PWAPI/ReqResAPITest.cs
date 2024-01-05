@@ -100,5 +100,28 @@ namespace PWAPI
             Assert.That(postResponse, Is.Not.Null);
 
         }
+        [Test]
+        public async Task UpdateUser()
+        {
+            var postData = new
+            {
+                name = "Lizza",
+                job = "Engineer"
+            };
+            var jsonData = System.Text.Json.JsonSerializer.Serialize(postData);
+
+            var postResponse = await requestContext.PostAsync(url: "users",
+                new APIRequestContextOptions()
+                {
+                    Data = jsonData
+                });
+            await Console.Out.WriteLineAsync("Res:\n" + postResponse.ToString());
+            await Console.Out.WriteLineAsync("Code:\n" + postResponse.Status);
+            await Console.Out.WriteLineAsync("Text:\n" + postResponse.StatusText);
+
+            Assert.That(postResponse.Status.Equals(201));
+            Assert.That(postResponse, Is.Not.Null);
+
+        }
     }
 }
