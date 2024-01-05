@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using NUnit.Framework;
 using System.Text.Json;
 
 namespace PWAPI
@@ -35,6 +36,45 @@ namespace PWAPI
 
             
            
+        }
+        [Test]
+        public async Task GetSingleUsers()
+        {
+            var getresponse = await requestContext.GetAsync(url: "users/2");
+            await Console.Out.WriteLineAsync("Res:\n" + getresponse.ToString());
+            await Console.Out.WriteLineAsync("Code:\n" + getresponse.Status);
+            await Console.Out.WriteLineAsync("Text:\n" + getresponse.StatusText);
+
+
+            Assert.That(getresponse.Status.Equals(200));
+            Assert.That(getresponse, Is.Not.Null);
+
+            JsonElement responsebody = (JsonElement)await getresponse.JsonAsync();
+            await Console.Out.WriteLineAsync("Res Body:\n" + responsebody.ToString());
+
+
+
+        }
+
+        [Test]
+        public async Task GetSingleUserNotFound()
+        {
+            var getresponse = await requestContext.GetAsync(url: "users/25");
+            await Console.Out.WriteLineAsync("Res:\n" + getresponse.ToString());
+            await Console.Out.WriteLineAsync("Code:\n" + getresponse.Status);
+            await Console.Out.WriteLineAsync("Text:\n" + getresponse.StatusText);
+
+
+            Assert.That(getresponse.Status.Equals(404));
+            Assert.That(getresponse, Is.Not.Null);
+
+            JsonElement responsebody = (JsonElement)await getresponse.JsonAsync();
+            await Console.Out.WriteLineAsync("Res Body:\n" + responsebody.ToString());
+
+            Assert.That(responsebody.ToString, Is.EqualTo("{}"));
+
+
+
         }
     }
 }
