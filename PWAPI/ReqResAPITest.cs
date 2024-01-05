@@ -110,7 +110,7 @@ namespace PWAPI
             };
             var jsonData = System.Text.Json.JsonSerializer.Serialize(postData);
 
-            var postResponse = await requestContext.PostAsync(url: "users",
+            var postResponse = await requestContext.PutAsync(url: "users/2",
                 new APIRequestContextOptions()
                 {
                     Data = jsonData
@@ -119,7 +119,7 @@ namespace PWAPI
             await Console.Out.WriteLineAsync("Code:\n" + postResponse.Status);
             await Console.Out.WriteLineAsync("Text:\n" + postResponse.StatusText);
 
-            Assert.That(postResponse.Status.Equals(201));
+            Assert.That(postResponse.Status.Equals(200));
             Assert.That(postResponse, Is.Not.Null);
 
         }
